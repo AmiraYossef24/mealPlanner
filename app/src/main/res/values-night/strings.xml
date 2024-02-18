@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_label">Email</string>
+    <string name="googleBtn">Sign Up with Google</string>
+    <string name="signup">Sign up</string>
+    <string name="or">OR</string>
+    <string name="remember_me">remember me</string>
+    <string name="do_you_have">Do you have account?</string>
+    <string name="fav_text">Favourite</string>
+    <string name="profile_text">Profile</string>
+    <string name="setting">Setting</string>
+    <string name="help">Help</string>
+    <string name="navigation_drawer_open">Opened</string>
+    <string name="navigation_drawer_close">Closed</string>
+    <string name="ahmed">Ahmed Elmorshedy</string>
+    <string name="choose">Choose \nYour Favourite Food</string>
+    <string name="all">All</string>
+    <string name="country">Country</string>
+    <string name="meal_ofDay">The Meal of Day</string>
+    <string name="read_more">Read more</string>
+
+</resources>
