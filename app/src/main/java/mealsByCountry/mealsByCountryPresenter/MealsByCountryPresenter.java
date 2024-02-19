@@ -63,6 +63,11 @@ public class MealsByCountryPresenter implements NetworkCallBack, IMealsByCountry
 
     }
 
+    @Override
+    public void onSuccessFilterByIngradiant(List<Meal> meals) {
+
+    }
+
 
     @Override
     public void addToFav(Meal meal) {
@@ -77,6 +82,6 @@ public class MealsByCountryPresenter implements NetworkCallBack, IMealsByCountry
 
     @Override
     public void deleteMeal(Meal meal) {
-        repo.deleteMeal(meal);
+        repo.delete(meal);
     }
 }

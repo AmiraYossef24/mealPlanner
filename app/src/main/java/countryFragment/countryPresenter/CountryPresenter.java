@@ -61,6 +61,11 @@ public class CountryPresenter implements NetworkCallBack, ICountryPresenter {
 
     }
 
+    @Override
+    public void onSuccessFilterByIngradiant(List<Meal> meals) {
+
+    }
+
 
     @Override
     public void getAllArea() {

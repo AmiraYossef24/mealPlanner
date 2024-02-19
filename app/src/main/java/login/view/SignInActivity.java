@@ -84,13 +84,14 @@ public class SignInActivity extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult) {
                         Toast.makeText(SignInActivity.this, "Sign in Successfully", Toast.LENGTH_SHORT).show();
                         Intent intent=new Intent(getApplicationContext(), AppAcitivity.class);
+                        //intent.putExtra(EMAIL,authResult.)
                         startActivity(intent);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(SignInActivity.this, "Failed"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignInActivity.this, "something went wrong"+e.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
                 });

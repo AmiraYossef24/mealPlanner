@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -23,28 +24,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import calendar.calendarView.CalendarActivity;
 import getAllFavMeals.getAllFavMealsView.getAllFavMeals;
+import model.MyDialogFragment;
 import profile.profileView.ProfileActivity;
 import search.searchView.SearchActivity;
+import androidx.fragment.app.DialogFragment;
 
 public class AppAcitivity extends AppCompatActivity implements  BottomNavigationView.OnNavigationItemSelectedListener
 {
     DrawerLayout drawerLayout;
 
-    Button home;
-    Button category;
-    Button country;
+
     ImageButton filter;
+    SearchView searchView;
 
     ImageView notication;
     BottomNavigationView bottomNavigationView;
@@ -54,6 +60,12 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
     FirebaseAuth firebaseAuth;
     private GoogleSignInClient gsc;
     private GoogleSignInOptions gso;
+    Chip homeBtn;
+    Chip categoryBtn;
+    Chip countryBtn;
+    Chip ingradiantsBtn;
+
+    private  GoogleSignInAccount account;
     private static final String TAG="AppActivity";
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
@@ -65,21 +77,34 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
         filter=findViewById(R.id.filterBtnID);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+        searchView=findViewById(R.id.searchViewID);
+
+        homeBtn=findViewById(R.id.homeChip);
+        categoryBtn=findViewById(R.id.cateChip);
+        countryBtn=findViewById(R.id.countryChip);
+        ingradiantsBtn=findViewById(R.id.ingraChip);
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),SearchActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        home=findViewById(R.id.homeBtnID);
-        category=findViewById(R.id.categoryBtnID);
-        country=findViewById(R.id.countryBtnID);
+
         notication=findViewById(R.id.notificationImageViewID);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         firebaseAuth=FirebaseAuth.getInstance();
         gso= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc= GoogleSignIn.getClient(this,gso);
-        GoogleSignInAccount account=GoogleSignIn.getLastSignedInAccount(this);
+        account=GoogleSignIn.getLastSignedInAccount(this);
+
         if(account!= null){
             String name=account.getDisplayName();
             String email=account.getEmail();
@@ -93,7 +118,7 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
             }
         });
 
-        home.setOnClickListener(new View.OnClickListener() {
+        homeBtn.setOnClickListener(new View.OnClickListener() {
 
             @SuppressLint("ResourceAsColor")
             @Override
@@ -103,7 +128,7 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
                 navController.navigate(R.id.oneMealFragment);
             }
         });
-        category.setOnClickListener(new View.OnClickListener() {
+        categoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -111,12 +136,21 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
                 navController.navigate(R.id.homeFragment);
             }
         });
-        country.setOnClickListener(new View.OnClickListener() {
+        countryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 NavController navController = Navigation.findNavController(AppAcitivity.this, R.id.nav_host_fragment);
                 navController.navigate(R.id.countryFragment);
+            }
+        });
+
+        ingradiantsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                NavController navController = Navigation.findNavController(AppAcitivity.this, R.id.nav_host_fragment);
+                navController.navigate(R.id.ingradiantFragment);
             }
         });
 
@@ -126,6 +160,17 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
 
             }
         });
+
+    }
+
+    private boolean checkUser() {
+
+        FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
+        if(firebaseUser == null){
+            return false;
+        }else  {
+            return true;
+        }
 
     }
 
@@ -153,17 +198,39 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
         int itemId = item.getItemId();
 
         if (itemId == R.id.fav_page) {
-            startActivity(new Intent(this, getAllFavMeals.class));
-            return true;
+            if(checkUser()){
+                Log.i(TAG, "line 186 return : ");
+                startActivity(new Intent(getApplicationContext(), getAllFavMeals.class));
+                return true;
+            }else {
+                DialogFragment dialogFragment = new MyDialogFragment();
+                dialogFragment.show(getSupportFragmentManager(), "MyDialogFragment");
+            }
+
         } else if (itemId == R.id.home_page) {
             startActivity(new Intent(this, AppAcitivity.class));
             return true;
         } else if (itemId == R.id.profile_page) {
-            startActivity(new Intent(this, ProfileActivity.class));
-            return true;
+            if(checkUser()){
+                Log.i(TAG, "line 198 return : ");
+                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                return true;
+            }else {
+                DialogFragment dialogFragment = new MyDialogFragment();
+                dialogFragment.show(getSupportFragmentManager(), "MyDialogFragment");
+            }
         }else if (itemId == R.id.search_page) {
             startActivity(new Intent(this, SearchActivity.class));
             return true;
+        }else if (itemId == R.id.calender_page) {
+            if(checkUser()){
+                Log.i(TAG, "line 186 return : ");
+                startActivity(new Intent(getApplicationContext(), CalendarActivity.class));
+                return true;
+            }else {
+                DialogFragment dialogFragment = new MyDialogFragment();
+                dialogFragment.show(getSupportFragmentManager(), "MyDialogFragment");
+            }
         }
 
         return false;

@@ -1,7 +1,5 @@
 package mealsByCategory.mealsByCategoryView;
 
-import static androidx.core.content.ContextCompat.startActivity;
-import static java.security.AccessController.getContext;
 import static oneMealFragment.oneMealView.oneMealFragment.MEAL_ID;
 
 import android.annotation.SuppressLint;
@@ -14,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +21,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import countryFragment.countryView.CountryAdapter;
 import homepage.view.Clickable;
 import itemDetails.itemView.ItemDetails;
 import model.Meal;
@@ -120,7 +116,7 @@ public class MealsByCategoryAdapter extends RecyclerView.Adapter<MealsByCategory
         public ViewHanlder(@NonNull View itemView) {
             super(itemView);
             card=itemView;
-            linearLayout=itemView.findViewById(R.id.myLinearLayoutID);
+            linearLayout=itemView.findViewById(R.id.myLinearLayoutCalendarID);
             imageView=itemView.findViewById(R.id.mealImageID);
             mealsName=itemView.findViewById(R.id.mealNameID);
             cate=itemView.findViewById(R.id.categoryTxID);

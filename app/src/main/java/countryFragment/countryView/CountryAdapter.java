@@ -2,7 +2,6 @@ package countryFragment.countryView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +18,7 @@ import com.example.mealplanner.R;
 import java.util.List;
 
 import homepage.view.Clickable;
-import homepage.view.HomeAdapter;
 import mealsByCountry.mealsByCountryView.MealsByCountry;
-import model.Category;
-import model.Country;
 import model.Meal;
 
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHandler> {
@@ -147,10 +143,10 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHand
         public ViewHandler(@NonNull View itemView) {
             super(itemView);
             layout=itemView;
-            name=itemView.findViewById(R.id.areaNameID);
-            imageView=itemView.findViewById(R.id.areaImageID);
+            name=itemView.findViewById(R.id.nameCalendarID);
+            imageView=itemView.findViewById(R.id.imageCalendarID);
             arrow=itemView.findViewById(R.id.arrowIconID);
-            linearLayout=itemView.findViewById(R.id.myLinearLayoutID);
+            linearLayout=itemView.findViewById(R.id.myLinearLayoutCalendarID);
 
         }
     }

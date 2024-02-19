@@ -23,7 +23,6 @@ import java.util.List;
 
 import homepage.view.Clickable;
 import itemDetails.itemView.ItemDetails;
-import mealsByCategory.mealsByCategoryView.MealsByCategoryAdapter;
 import model.Meal;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHanlder> {
@@ -94,10 +93,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHanlde
         public ViewHanlder(@NonNull View itemView) {
             super(itemView);
             card=itemView;
-            linearLayout=itemView.findViewById(R.id.myLinearLayoutID);
-            imageView=itemView.findViewById(R.id.areaImageID);
-            mealsName=itemView.findViewById(R.id.areaNameID);
-            arrow=itemView.findViewById(R.id.arrowCountryID);
+            linearLayout=itemView.findViewById(R.id.myLinearLayoutCalendarID);
+            imageView=itemView.findViewById(R.id.imageCalendarID);
+            mealsName=itemView.findViewById(R.id.nameCalendarID);
+            arrow=itemView.findViewById(R.id.deleteCalendarIconID);
 
 
 

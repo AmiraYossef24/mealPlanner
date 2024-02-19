@@ -10,4 +10,5 @@ public interface ICategoryRemoteDataSource {
     public void makeFilterByCategoryCall (NetworkCallBack networkCallBack,String name);
 
     public void makeSearchByNameCall(NetworkCallBack networkCallBack,String name);
+    public void makeFilterByIngradiants(NetworkCallBack networkCallBack);
 }

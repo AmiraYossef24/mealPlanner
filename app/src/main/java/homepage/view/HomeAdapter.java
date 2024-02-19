@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -88,9 +87,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHandler>{
     public ViewHandler(@NonNull View itemView) {
         super(itemView);
         card=itemView;
-        linearLayout=itemView.findViewById(R.id.myLinearLayoutID);
-        imageView=itemView.findViewById(R.id.areaImageID);
-        name=itemView.findViewById(R.id.areaNameID);
+        linearLayout=itemView.findViewById(R.id.myLinearLayoutCalendarID);
+        imageView=itemView.findViewById(R.id.imageCalendarID);
+        name=itemView.findViewById(R.id.nameCalendarID);
 
 
 

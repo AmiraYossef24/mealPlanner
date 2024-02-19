@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,15 +24,21 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import DB.CategoryLocalDataSource;
 import countryFragment.countryPresenter.CountryPresenter;
+import getAllFavMeals.getAllFavMealsPresenter.getAllFavPresenter;
 import homepage.view.Clickable;
 import itemDetails.itemPresenter.ItemPresenter;
 import model.Category;
 import model.CategoryRepository;
+import model.DateMeal;
 import model.Meal;
 import network.CategoryRemoteDataSource;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,6 +62,7 @@ public class ItemDetails extends AppCompatActivity implements Clickable, IitemDe
 
     FloatingActionsMenu fabMenu;
     FloatingActionButton fabItem1, fabItem2;
+    String dayName;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -74,7 +83,7 @@ public class ItemDetails extends AppCompatActivity implements Clickable, IitemDe
         Intent intent=getIntent();
         mealId=intent.getStringExtra(MEAL_ID);
         Log.i("TAG", "the id of meal from itemDetails  is : "+mealId);
-        presenter = new ItemPresenter(this, CategoryRepository.getInstance(CategoryLocalDataSource.getInstance(getApplicationContext()), CategoryRemoteDataSource.getInstance()));
+        presenter=new ItemPresenter(this, CategoryRepository.getInstance(CategoryLocalDataSource.getInstance(this), CategoryRemoteDataSource.getInstance()));
         presenter.getAllDetails(mealId);
         Log.i("TAG", "get all area from preseter is: " + presenter.toString());
 
@@ -97,6 +106,10 @@ public class ItemDetails extends AppCompatActivity implements Clickable, IitemDe
         category.setText(meals.get(0).getStrCategory());
         area.setText(meals.get(0).getStrArea());
         instructions.setText(meals.get(0).getStrInstructions());
+        Calendar calendar=Calendar.getInstance();
+        int year=calendar.get(Calendar.YEAR);
+        int month=calendar.get(Calendar.MONTH);
+        int day=calendar.get(Calendar.DAY_OF_MONTH);
 
         StringBuilder ingredientsBuilder = new StringBuilder();
         for (int i = 1; i <= 20; i++) {
@@ -116,6 +129,41 @@ public class ItemDetails extends AppCompatActivity implements Clickable, IitemDe
             }
         });
 
+        fabItem2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                long currentTime = System.currentTimeMillis();
+                long maxTime = currentTime + (7 * 24 * 60 * 60 * 1000);
+                DatePickerDialog datePickerDialog=new DatePickerDialog(
+                        ItemDetails.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        calendar.set(year, month, dayOfMonth);
+                        Date selectedDate = calendar.getTime();
+                        dayName = convertDateToDayName(selectedDate);
+                        presenter.addToCalender(new DateMeal(
+                                meals.get(0).getIdMeal(),
+                                meals.get(0).getStrMeal(),
+                                meals.get(0).getStrMealThumb(),
+                                dayName));
+                        Log.i("TAG", "item added to calendar from itemdetails: "+meals.get(0).getStrMeal()+dayName);
+                        Toast.makeText(ItemDetails.this, "Item added to your plan "+dayName, Toast.LENGTH_SHORT).show();
+
+
+                       // Toast.makeText(ItemDetails.this, "Selected date: " + dayName, Toast.LENGTH_SHORT).show();
+                    }
+                },year,month,day
+                );
+
+                datePickerDialog.getDatePicker().setMinDate(currentTime);
+                datePickerDialog.getDatePicker().setMaxDate(maxTime);
+                datePickerDialog.show();
+
+
+            }
+        });
+
 //        String imageSource = meals.get(0).getStrMealThumb();
 //        if (imageSource != null && !imageSource.isEmpty()) {
 //            Picasso.get().load(imageSource).into(imageView);
@@ -125,6 +173,11 @@ public class ItemDetails extends AppCompatActivity implements Clickable, IitemDe
 
 
 
+    }
+
+    private String convertDateToDayName(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.getDefault());
+        return sdf.format(date);
     }
 
     private String getIngredient(Meal meal, int index) {
@@ -175,8 +228,14 @@ public class ItemDetails extends AppCompatActivity implements Clickable, IitemDe
     }
 
     @Override
-    public void clickOnCalendar(Meal meal) {
+    public void clickOnCalendar(DateMeal meal) {
 
+        presenter.addToCalender(meal);
+
+    }
+
+    @Override
+    public void clickOnDeleteCalendar(DateMeal meal) {
 
     }
 }

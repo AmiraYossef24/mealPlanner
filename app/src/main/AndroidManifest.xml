@@ -15,6 +15,15 @@
         android:theme="@style/Theme.MealPlanner"
         tools:targetApi="31">
         <activity
+            android:name="ingradiantsActivity.IngradiantActivity"
+            android:exported="false" />
+        <activity
+            android:name="ingradiantsActivity.ingradiantView.MealsByIngradiantsActivity"
+            android:exported="false" />
+        <activity
+            android:name="calendar.calendarView.CalendarActivity"
+            android:exported="false" />
+        <activity
             android:name="search.searchView.SearchActivity"
             android:exported="false" />
         <activity

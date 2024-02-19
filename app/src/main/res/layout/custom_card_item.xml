@@ -9,7 +9,7 @@
     app:cardElevation="16dp">
 
     <LinearLayout
-        android:id="@+id/myLinearLayoutID"
+        android:id="@+id/myLinearLayoutCalendarID"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

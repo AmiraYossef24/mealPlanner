@@ -29,6 +29,7 @@ import getAllFavMeals.getAllFavMealsPresenter.getAllFavPresenter;
 import homepage.view.Clickable;
 import model.Category;
 import model.CategoryRepository;
+import model.DateMeal;
 import model.Meal;
 import network.CategoryRemoteDataSource;
 
@@ -102,7 +103,12 @@ public class getAllFavMeals extends AppCompatActivity implements Clickable,IgetA
     }
 
     @Override
-    public void clickOnCalendar(Meal meal) {
+    public void clickOnCalendar(DateMeal meal) {
+
+    }
+
+    @Override
+    public void clickOnDeleteCalendar(DateMeal meal) {
 
     }
 

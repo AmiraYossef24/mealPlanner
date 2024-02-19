@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_oneMealFragment_to_countryFragment"
             app:destination="@id/countryFragment" />
+        <action
+            android:id="@+id/action_oneMealFragment_to_ingradiantFragment"
+            app:destination="@id/ingradiantFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -27,6 +30,9 @@
         <action
             android:id="@+id/action_homeFragment_to_oneMealFragment"
             app:destination="@id/oneMealFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_ingradiantFragment"
+            app:destination="@id/ingradiantFragment" />
     </fragment>
     <fragment
         android:id="@+id/countryFragment"
@@ -38,6 +44,24 @@
             app:destination="@id/homeFragment" />
         <action
             android:id="@+id/action_countryFragment_to_oneMealFragment"
+            app:destination="@id/oneMealFragment" />
+        <action
+            android:id="@+id/action_countryFragment_to_ingradiantFragment"
+            app:destination="@id/ingradiantFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ingradiantFragment"
+        android:name="mealsByIngradiants.mealsByIngradiantView.ingradiantFragment"
+        android:label="fragment_ingradiant"
+        tools:layout="@layout/fragment_ingradiant" >
+        <action
+            android:id="@+id/action_ingradiantFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_ingradiantFragment_to_countryFragment"
+            app:destination="@id/countryFragment" />
+        <action
+            android:id="@+id/action_ingradiantFragment_to_oneMealFragment"
             app:destination="@id/oneMealFragment" />
     </fragment>
 </navigation>

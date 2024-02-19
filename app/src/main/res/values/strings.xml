@@ -40,5 +40,6 @@
     <string name="default_web_client_id">Default Web Client Id</string>
     <string name="logout">Log out</string>
     <string name="search">Search by Name</string>
+    <string name="daily">Daily Meal</string>
 
 </resources>

@@ -27,12 +27,14 @@ import mealsByCategory.mealsByCategoryPresenter.MealsByCategoryPresenter;
 import mealsByCategory.mealsByCategoryView.MealsByCategoryAdapter;
 import model.Category;
 import model.CategoryRepository;
+import model.DateMeal;
 import model.Meal;
 import model.Meals;
 import network.CategoryRemoteDataSource;
 import search.searchPresenter.SearchPresenter;
 import io.reactivex.rxjava3.core.Observable;
-
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 public class SearchActivity extends AppCompatActivity implements Clickable, ISearchActivity {
 
@@ -79,7 +81,12 @@ public class SearchActivity extends AppCompatActivity implements Clickable, ISea
     }
 
     @Override
-    public void clickOnCalendar(Meal meal) {
+    public void clickOnCalendar(DateMeal meal) {
+
+    }
+
+    @Override
+    public void clickOnDeleteCalendar(DateMeal meal) {
 
     }
 

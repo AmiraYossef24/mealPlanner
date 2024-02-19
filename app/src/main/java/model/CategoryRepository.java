@@ -1,5 +1,7 @@
 package model;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
@@ -13,6 +15,7 @@ public class CategoryRepository {
 
     CategoryLocalDataSource localDataSource;
     CategoryRemoteDataSource remoteDataSource;
+
     private  static CategoryRepository repo=null;
 
     public CategoryRepository(CategoryLocalDataSource localDataSource, CategoryRemoteDataSource remoteDataSource) {
@@ -61,10 +64,6 @@ public class CategoryRepository {
         localDataSource.insert(meal);
     }
 
-    public void deleteMeal(Meal meal){
-        localDataSource.delete(meal);
-    }
-
     public void getAllMealsFromCountry(NetworkCallBack networkCallBack,String name){
         remoteDataSource.makeFilterByCountryCall(networkCallBack,name);
     }
@@ -72,5 +71,22 @@ public class CategoryRepository {
         remoteDataSource.makeSearchByNameCall(networkCallBack,name);
     }
 
+    public void addToCalendar(DateMeal meal){
+        localDataSource.insertToCalender(meal);
+    }
+
+    public LiveData<List<DateMeal>> getStoredPlans(){
+        Log.i("TAG", "getStoredPlans from your repo is : "+ localDataSource.getMyCalendarList());
+        return localDataSource.getMyCalendarList();
+
+
+    }
+    public void deleteFromCalendar(DateMeal meal){
+        localDataSource.deleteFromCalender(meal);
+    }
+
+    public void getAllFilterByIngradiants(NetworkCallBack networkCallBack){
+        remoteDataSource.makeFilterByIngradiants(networkCallBack);
+    }
 
 }

@@ -62,6 +62,11 @@ public class MealsByCategoryPresenter implements NetworkCallBack, IMealsByCatego
 
     }
 
+    @Override
+    public void onSuccessFilterByIngradiant(List<Meal> meals) {
+
+    }
+
 
     @Override
     public void getMealsFilterByCategory(String categiry){
@@ -77,6 +82,6 @@ public class MealsByCategoryPresenter implements NetworkCallBack, IMealsByCatego
 
     @Override
     public void deleteMeal(Meal meal) {
-        repo.deleteMeal(meal);
+        repo.delete(meal);
     }
 }

@@ -76,7 +76,7 @@
             android:orientation="horizontal">
 
             <SearchView
-                android:id="@+id/searchView"
+                android:id="@+id/searchViewID"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -99,61 +99,80 @@
 
         </LinearLayout>
 
+
+
         <!-- Button Section -->
-        <LinearLayout
+
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:layout_height="wrap_content">
 
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:singleSelection="true">
 
-            <Button
-                android:id="@+id/homeBtnID"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/white"
-                android:text="@string/home_text"
-                android:textColor="@drawable/btn_textcolor"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                app:rippleColor="@color/red"
-                app:strokeColor="@color/dark_color"
-                app:strokeWidth="1dp" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/homeChip"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:drawablePadding="2dp"
+                    android:text="@string/daily"
+                    android:textColor="@color/dark_color"
+                    android:textSize="12sp"
+                    app:chipStrokeColor="@color/dark_color"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="@color/red" />
 
-            <Button
-                android:id="@+id/categoryBtnID"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/white"
-                android:text="@string/category"
-                android:textColor="@color/dark_color"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                app:rippleColor="@color/red"
-                app:strokeColor="@color/dark_color"
-                app:strokeWidth="1dp" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/cateChip"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="3dp"
+                    android:text="@string/category"
+                    android:textColor="@color/dark_color"
+                    android:textSize="12sp"
+                    app:checkedIconTint="@color/dark_color"
+                    app:chipStrokeColor="@color/dark_color"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="@color/red" />
 
-            <Button
-                android:id="@+id/countryBtnID"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@color/white"
-                android:text="@string/country"
-                android:textColor="@color/dark_color"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                app:rippleColor="@color/red"
-                app:strokeColor="@color/dark_color"
-                app:strokeWidth="1dp" />
-        </LinearLayout>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/countryChip"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/country"
+                    android:textColor="@color/dark_color"
+                    android:textColorHighlight="@color/white_red"
+                    android:textSize="12sp"
+                    app:checkedIconTint="@color/dark_color"
+                    app:chipStrokeColor="@color/dark_color"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="@color/red" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/ingraChip"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:text="@string/ingradiant"
+                    android:textColor="@color/dark_color"
+                    android:textColorHighlight="@color/white_red"
+                    android:textSize="12sp"
+                    app:checkedIconTint="@color/dark_color"
+                    app:chipStrokeColor="@color/dark_color"
+                    app:chipStrokeWidth="1dp"
+                    app:rippleColor="@color/red" />
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
 
         <!-- Fragment Container -->
 

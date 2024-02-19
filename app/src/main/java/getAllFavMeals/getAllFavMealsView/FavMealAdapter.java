@@ -87,10 +87,10 @@ public class FavMealAdapter extends RecyclerView.Adapter<FavMealAdapter.ViewHand
             super(itemView);
 
             card=itemView;
-            linearLayout=itemView.findViewById(R.id.myLinearLayoutID);
-            imageView=itemView.findViewById(R.id.areaImageID);
-            name=itemView.findViewById(R.id.areaNameID);
-            arrowIcon=itemView.findViewById(R.id.arrowCountryID);
+            linearLayout=itemView.findViewById(R.id.myLinearLayoutCalendarID);
+            imageView=itemView.findViewById(R.id.imageCalendarID);
+            name=itemView.findViewById(R.id.nameCalendarID);
+            arrowIcon=itemView.findViewById(R.id.deleteCalendarIconID);
             arrowIcon.setImageResource(R.drawable.remove_icon);
 
         }

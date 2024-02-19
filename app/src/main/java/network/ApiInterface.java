@@ -35,4 +35,8 @@ public interface ApiInterface {
 
     @GET("search.php")
     Call<Meals> getSearchByName(@Query("s") String name);
+
+    @GET("list.php?i=list")
+    Call<Meals> getMealsByIngradiants();
+
 }

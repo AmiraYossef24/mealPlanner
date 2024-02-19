@@ -115,7 +115,7 @@ public class MealsByCountryAdapter extends RecyclerView.Adapter<MealsByCountryAd
         public ViewHanlder(@NonNull View itemView) {
             super(itemView);
             card=itemView;
-            linearLayout=itemView.findViewById(R.id.myLinearLayoutID);
+            linearLayout=itemView.findViewById(R.id.myLinearLayoutCalendarID);
             imageView=itemView.findViewById(R.id.mealImageID);
             mealsName=itemView.findViewById(R.id.mealNameID);
             cate=itemView.findViewById(R.id.categoryTxID);

@@ -30,6 +30,7 @@ import homepage.view.Clickable;
 import itemDetails.itemView.ItemDetails;
 import model.Category;
 import model.CategoryRepository;
+import model.DateMeal;
 import model.Meal;
 import network.CategoryRemoteDataSource;
 import oneMealFragment.oneMealPresenter.OneMealPreseter;
@@ -72,8 +73,8 @@ public class oneMealFragment extends Fragment implements Clickable, IoneMealFrag
         super.onViewCreated(view, savedInstanceState);
         cardView=view.findViewById(R.id.oneMealCardId);
 
-        imageView=view.findViewById(R.id.areaImageID);
-        name=view.findViewById(R.id.areaNameID);
+        imageView=view.findViewById(R.id.imageCalendarID);
+        name=view.findViewById(R.id.nameCalendarID);
         country=view.findViewById(R.id.countryTxID);
         arrow=view.findViewById(R.id.arrowIconID);
         linearLayout=view.findViewById(R.id.lastLinearID);
@@ -141,7 +142,12 @@ public class oneMealFragment extends Fragment implements Clickable, IoneMealFrag
     }
 
     @Override
-    public void clickOnCalendar(Meal meal) {
+    public void clickOnCalendar(DateMeal meal) {
+
+    }
+
+    @Override
+    public void clickOnDeleteCalendar(DateMeal meal) {
 
     }
 

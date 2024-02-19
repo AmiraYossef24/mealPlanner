@@ -25,6 +25,7 @@ import mealsByCategory.mealsByCategoryPresenter.MealsByCategoryPresenter;
 import mealsByCountry.mealsByCountryPresenter.MealsByCountryPresenter;
 import model.Category;
 import model.CategoryRepository;
+import model.DateMeal;
 import model.Meal;
 import network.CategoryRemoteDataSource;
 
@@ -77,7 +78,12 @@ public class MealsByCountry extends AppCompatActivity implements Clickable, IMea
     }
 
     @Override
-    public void clickOnCalendar(Meal meal) {
+    public void clickOnCalendar(DateMeal meal) {
+
+    }
+
+    @Override
+    public void clickOnDeleteCalendar(DateMeal meal) {
 
     }
 

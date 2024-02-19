@@ -27,6 +27,7 @@ import homepage.presenter.FPresenter;
 import homepage.presenter.IfPresenter;
 import model.Category;
 import model.CategoryRepository;
+import model.DateMeal;
 import model.Meal;
 import network.CategoryRemoteDataSource;
 
@@ -93,7 +94,12 @@ public class homeFragment extends Fragment implements Clickable, IhomeFragment {
     }
 
     @Override
-    public void clickOnCalendar(Meal meal) {
+    public void clickOnCalendar(DateMeal meal) {
+
+    }
+
+    @Override
+    public void clickOnDeleteCalendar(DateMeal meal) {
 
     }
 

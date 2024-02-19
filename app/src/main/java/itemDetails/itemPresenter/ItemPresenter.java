@@ -7,6 +7,7 @@ import countryFragment.countryView.ICountryFragment;
 import itemDetails.itemView.IitemDetails;
 import model.Category;
 import model.CategoryRepository;
+import model.DateMeal;
 import model.Meal;
 import network.NetworkCallBack;
 
@@ -63,6 +64,11 @@ public class ItemPresenter implements NetworkCallBack, IitemPresenter {
 
     }
 
+    @Override
+    public void onSuccessFilterByIngradiant(List<Meal> meals) {
+
+    }
+
 
     @Override
     public void addToFav(Meal meal) {
@@ -71,7 +77,8 @@ public class ItemPresenter implements NetworkCallBack, IitemPresenter {
 
 
     @Override
-    public void addToCalender(Meal meal) {
+    public void addToCalender(DateMeal meal) {
+        repo.addToCalendar(meal);
 
     }
     @Override

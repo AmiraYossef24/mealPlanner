@@ -206,6 +206,31 @@ public class CategoryRemoteDataSource implements  ICategoryRemoteDataSource {
         });
     }
 
+    public void makeFilterByIngradiants(NetworkCallBack networkCallBack){
+        Call<Meals> call=apiInterface.getMealsByIngradiants();
+        call.enqueue(new Callback<Meals>() {
+            @Override
+            public void onResponse(Call<Meals> call, Response<Meals> response) {
+
+                if(response.isSuccessful()) {
+                    assert response.body() != null;
+                    Log.i(TAG, "<<<<<<<<onResponse: success>>>>>");
+                    networkCallBack.onSuccessFilterByIngradiant(response.body().getMeals());
+                    Log.i(TAG, ">>>>>getMeals by country name  is: "+response.body().getMeals());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Meals> call, Throwable t) {
+
+                Log.i(TAG, "onFailure: ");
+                networkCallBack.onFailureResult(t.getMessage());
+                t.printStackTrace();
+
+            }
+        });
+    }
+
 
 }
 

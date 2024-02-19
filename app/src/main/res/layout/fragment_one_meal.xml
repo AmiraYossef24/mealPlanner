@@ -38,7 +38,7 @@
                 android:layout_gravity="center">
 
                 <LinearLayout
-                    android:id="@+id/myLinearLayoutID"
+                    android:id="@+id/myLinearLayoutCalendarID"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -47,7 +47,7 @@
                     android:weightSum="5">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/areaImageID"
+                        android:id="@+id/imageCalendarID"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_gravity="center"
@@ -57,7 +57,7 @@
                         tools:ignore="MissingClass" />
 
                     <TextView
-                        android:id="@+id/areaNameID"
+                        android:id="@+id/nameCalendarID"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"

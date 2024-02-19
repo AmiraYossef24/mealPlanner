@@ -29,6 +29,7 @@ import homepage.view.HomeAdapter;
 import mealsByCategory.mealsByCategoryPresenter.MealsByCategoryPresenter;
 import model.Category;
 import model.CategoryRepository;
+import model.DateMeal;
 import model.Meal;
 import network.CategoryRemoteDataSource;
 
@@ -81,7 +82,12 @@ public class MealsByCategory extends AppCompatActivity implements Clickable, IMe
     }
 
     @Override
-    public void clickOnCalendar(Meal meal) {
+    public void clickOnCalendar(DateMeal meal) {
+
+    }
+
+    @Override
+    public void clickOnDeleteCalendar(DateMeal meal) {
 
     }
 

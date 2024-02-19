@@ -12,7 +12,7 @@
     app:cardElevation="16dp">
 
     <LinearLayout
-        android:id="@+id/myLinearLayoutID"
+        android:id="@+id/myLinearLayoutCalendarID"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
@@ -21,7 +21,7 @@
         android:padding="16dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/areaImageID"
+            android:id="@+id/imageCalendarID"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="center|start"
@@ -30,7 +30,7 @@
             tools:ignore="MissingClass" />
 
         <TextView
-            android:id="@+id/areaNameID"
+            android:id="@+id/nameCalendarID"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -41,7 +41,7 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/arrowCountryID"
+            android:id="@+id/deleteCalendarIconID"
             android:layout_width="24dp"
             android:layout_height="24dp"
 
