@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myCountryCardID"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="4dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="16dp">
+
+    <LinearLayout
+        android:id="@+id/myLinearLayoutCalendarID"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:gravity="start"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageCalendarID"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center|start"
+            android:scaleType="centerCrop"
+            android:src="@drawable/person_user_icon"
+            tools:ignore="MissingClass" />
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nameCalendarID"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:text="TextView"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dayNameID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/deleteCalendarIconID"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+
+            android:layout_gravity="center_vertical|end"
+            android:clickable="true"
+            app:srcCompat="@drawable/remove_icon" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

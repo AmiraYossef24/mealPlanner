@@ -33,12 +33,10 @@ import model.DateMeal;
 import model.Meal;
 import network.CategoryRemoteDataSource;
 
-public class getAllFavMeals extends AppCompatActivity implements Clickable,IgetAllFavMeals, BottomNavigationView.OnNavigationItemSelectedListener {
+public class getAllFavMeals extends AppCompatActivity implements Clickable,IgetAllFavMeals {
     RecyclerView recyclerView;
     FavMealAdapter adapter;
     IgetAllFavPresenter presenter;
-    BottomNavigationView bottomNavigationView;
-    View myAnimatedView;
     LottieAnimationView animationView;
     private static final String TAG="RecycleView";
     @SuppressLint("MissingInflatedId")
@@ -52,8 +50,8 @@ public class getAllFavMeals extends AppCompatActivity implements Clickable,IgetA
 
 
         recyclerView=findViewById(R.id.recycleId);
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
@@ -72,13 +70,13 @@ public class getAllFavMeals extends AppCompatActivity implements Clickable,IgetA
             @Override
             public void onChanged(List<Meal> meals) {
                 if(adapter != null) {
-                    animationView.setVisibility(View.GONE);
-                    adapter.setMyList(meals);
-                    adapter.notifyDataSetChanged();
-                }else{
                     animationView.setVisibility(View.VISIBLE);
                     animationView
                             .playAnimation();
+                    adapter.setMyList(meals);
+                    adapter.notifyDataSetChanged();
+                }else{
+
                 }
             }
         });
@@ -112,20 +110,5 @@ public class getAllFavMeals extends AppCompatActivity implements Clickable,IgetA
 
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        if(item.getItemId()==R.id.fav_page){
-            Intent intent=new Intent(this,getAllFavMeals.class);
-            startActivity(intent);
-            return true;
-        }
-        if(item.getItemId()==R.id.home_page){
-            Intent intent2=new Intent(this, AppAcitivity.class);
-            startActivity(intent2);
-            return true;
-
-        }
-        return false;
-    }
 }

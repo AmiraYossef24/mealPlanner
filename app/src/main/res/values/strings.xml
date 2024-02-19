@@ -41,5 +41,7 @@
     <string name="logout">Log out</string>
     <string name="search">Search by Name</string>
     <string name="daily">Daily Meal</string>
+    <string name="calendar">Calendar</string>
+    <string name="ssearch">Search</string>
 
 </resources>

@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -53,6 +54,7 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
     SearchView searchView;
 
     ImageView notication;
+    TextView headerTextView;
     BottomNavigationView bottomNavigationView;
 
     NavigationView navigationView;
@@ -61,6 +63,7 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
     private GoogleSignInClient gsc;
     private GoogleSignInOptions gso;
     Chip homeBtn;
+    View headerView;
     Chip categoryBtn;
     Chip countryBtn;
     Chip ingradiantsBtn;
@@ -77,8 +80,9 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
         filter=findViewById(R.id.filterBtnID);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+        headerView = navigationView.getHeaderView(0);
+        headerTextView = headerView.findViewById(R.id.userName);
         searchView=findViewById(R.id.searchViewID);
-
         homeBtn=findViewById(R.id.homeChip);
         categoryBtn=findViewById(R.id.cateChip);
         countryBtn=findViewById(R.id.countryChip);
@@ -108,6 +112,7 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
         if(account!= null){
             String name=account.getDisplayName();
             String email=account.getEmail();
+            headerTextView.setText(email);
         }
 
 
@@ -169,6 +174,7 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
         if(firebaseUser == null){
             return false;
         }else  {
+
             return true;
         }
 

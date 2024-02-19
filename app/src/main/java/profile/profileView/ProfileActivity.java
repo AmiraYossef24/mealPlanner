@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mealplanner.AppAcitivity;
@@ -15,10 +16,13 @@ public class ProfileActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
 
+    TextView name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        name=findViewById(R.id.userName);
         firebaseAuth=FirebaseAuth.getInstance();
         checkUser();
     }
@@ -27,11 +31,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
         if(firebaseUser == null){
-            startActivity(new Intent(this,AppAcitivity.class));
-            finish();
+
+            name.setText("Guest");
+
         }else{
             String email=firebaseUser.getEmail();
-            Toast.makeText(this, "welcome"+email, Toast.LENGTH_SHORT).show();
+            name.setText(email);
+
         }
     }
 }

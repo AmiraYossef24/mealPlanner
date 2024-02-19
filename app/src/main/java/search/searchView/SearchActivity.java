@@ -14,8 +14,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.mealplanner.R;
 
 import java.util.ArrayList;
@@ -45,6 +47,8 @@ public class SearchActivity extends AppCompatActivity implements Clickable, ISea
     SearchAdapter adapter;
     EditText search;
 
+    LottieAnimationView  animationView;
+
 
 
     @SuppressLint("MissingInflatedId")
@@ -52,6 +56,7 @@ public class SearchActivity extends AppCompatActivity implements Clickable, ISea
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        animationView=findViewById(R.id.my_animated_view);
         search=findViewById(R.id.editTextSearchId);
         recyclerView=findViewById(R.id.search_recycleID);
         recyclerView.setHasFixedSize(true);
@@ -113,6 +118,8 @@ public class SearchActivity extends AppCompatActivity implements Clickable, ISea
                                 },
                                 error -> Log.i("TAG", "on Error: "+error),
                                 ()->{
+                                    animationView.setVisibility(View.GONE);
+
                                     Log.i("TAG", "completed: ");
 
                                     adapter.setMyList(filterList);
