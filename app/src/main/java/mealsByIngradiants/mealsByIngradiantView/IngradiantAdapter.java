@@ -65,13 +65,14 @@ public class IngradiantAdapter extends  RecyclerView.Adapter<IngradiantAdapter.V
     @Override
     public void onBindViewHolder(@NonNull IngradiantAdapter.ViewHandler holder, @SuppressLint("RecyclerView") int position) {
 
-        Picasso.get().load(imageUrl1+myList.get(position).getStrIngredient()+imageUrl2).into(holder.imageView);
+        Picasso.get().load(imageUrl1+myList.get(position).getStrIngredient1()+imageUrl2).into(holder.imageView);
         holder.name.setText(myList.get(position).getStrIngredient());
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context, IngradiantActivity.class);
                 intent.putExtra(INGRADIANT_NAME,myList.get(position).getStrIngredient());
+                //context.startActivity(intent);
             }
         });
 

@@ -173,48 +173,36 @@ public class SignUpActivity extends AppCompatActivity {
         String _pass=pass.getText().toString().trim();
         String _conPass=conPass.getText().toString().trim();
 
-        HashMap<String,Object> hashMap=new HashMap<>();
-        hashMap.put("name",_username);
-        hashMap.put("email",_email);
-        hashMap.put("phone",_phone);
-        hashMap.put("password",_pass);
+        if(isAllFilled() && isPassEqual(_pass,_conPass)) {
 
-        firebaseAuth.createUserWithEmailAndPassword(_email,_pass)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        Toast.makeText(SignUpActivity.this, "auth success", Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(getApplicationContext(),SignInActivity.class);
-                        startActivity(intent);
-                        finish();
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("name", _username);
+            hashMap.put("email", _email);
+            hashMap.put("phone", _phone);
+            hashMap.put("password", _pass);
 
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(SignUpActivity.this,e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
-//        reference.child("Users").child(_username).setValue(hashMap)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void unused) {
-//                        Toast.makeText(SignUpActivity.this, "data added successfully", Toast.LENGTH_SHORT).show();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(SignUpActivity.this, "data failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                });
+            firebaseAuth.createUserWithEmailAndPassword(_email, _pass)
+                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            Toast.makeText(SignUpActivity.this, "auth success", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                            startActivity(intent);
+                            finish();
 
 
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+        }else {
+            pass.setError("password does not match");
+        }
 
     }
 
