@@ -48,7 +48,8 @@
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical|end"
                 android:layout_marginLeft="235dp"
-                android:src="@drawable/notification_thin_icon" />
+                android:src="@drawable/notification_thin_icon"
+                app:srcCompat="@drawable/logout" />
 
 
 

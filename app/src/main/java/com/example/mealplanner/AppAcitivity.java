@@ -40,6 +40,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import calendar.calendarView.CalendarActivity;
 import getAllFavMeals.getAllFavMealsView.getAllFavMeals;
+import login.view.SignInActivity;
 import model.MyDialogFragment;
 import profile.profileView.ProfileActivity;
 import search.searchView.SearchActivity;
@@ -53,7 +54,7 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
     ImageButton filter;
     SearchView searchView;
 
-    ImageView notication;
+    ImageView logout;
     TextView headerTextView;
     BottomNavigationView bottomNavigationView;
 
@@ -78,6 +79,7 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_acitivity);
         filter=findViewById(R.id.filterBtnID);
+        logout=findViewById(R.id.notificationImageViewID);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         headerView = navigationView.getHeaderView(0);
@@ -101,7 +103,6 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
         toggle.syncState();
 
 
-        notication=findViewById(R.id.notificationImageViewID);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         firebaseAuth=FirebaseAuth.getInstance();
@@ -116,9 +117,23 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
         }
 
 
-        notication.setOnClickListener(new View.OnClickListener() {
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
+
+                if(firebaseUser==null){
+
+                    DialogFragment dialogFragment = new MyDialogFragment();
+                    dialogFragment.show(getSupportFragmentManager(), "MyDialogFragment");
+
+                }else {
+
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(AppAcitivity.this, SignInActivity.class));
+                    Toast.makeText(AppAcitivity.this, "Logout Successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
 
             }
         });
