@@ -6,6 +6,7 @@ import countryFragment.countryView.ICountryFragment;
 import mealsByCategory.mealsByCategoryView.IMealsByCategory;
 import model.Category;
 import model.CategoryRepository;
+import model.DateMeal;
 import model.Meal;
 import network.NetworkCallBack;
 
@@ -83,5 +84,9 @@ public class MealsByCategoryPresenter implements NetworkCallBack, IMealsByCatego
     @Override
     public void deleteMeal(Meal meal) {
         repo.delete(meal);
+    }
+
+    public void addToCalendar(DateMeal meal){
+        repo.addToCalendar(meal);
     }
 }

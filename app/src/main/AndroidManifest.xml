@@ -15,6 +15,9 @@
         android:theme="@style/Theme.MealPlanner"
         tools:targetApi="31">
         <activity
+            android:name=".PoorConnectionActivity"
+            android:exported="false" />
+        <activity
             android:name="ingradiantsActivity.IngradiantActivity"
             android:exported="false" />
         <activity

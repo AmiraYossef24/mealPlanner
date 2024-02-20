@@ -43,5 +43,8 @@
     <string name="daily">Daily Meal</string>
     <string name="calendar">Calendar</string>
     <string name="ssearch">Search</string>
+    <string name="poor_conn">Poor Connection...</string>
+    <string name="check_internet">"Check your Internet and try again "</string>
+    <string name="welcome">Welcome</string>
 
 </resources>

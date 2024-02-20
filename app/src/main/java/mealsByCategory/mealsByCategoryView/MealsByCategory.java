@@ -83,6 +83,7 @@ public class MealsByCategory extends AppCompatActivity implements Clickable, IMe
 
     @Override
     public void clickOnCalendar(DateMeal meal) {
+        presenter.addToCalendar(meal);
 
     }
 

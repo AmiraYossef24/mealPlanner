@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.mealplanner.AppAcitivity;
@@ -36,6 +37,7 @@ import network.CategoryRemoteDataSource;
 public class getAllFavMeals extends AppCompatActivity implements Clickable,IgetAllFavMeals {
     RecyclerView recyclerView;
     FavMealAdapter adapter;
+    ImageView back;
     IgetAllFavPresenter presenter;
     LottieAnimationView animationView;
     private static final String TAG="RecycleView";
@@ -46,7 +48,7 @@ public class getAllFavMeals extends AppCompatActivity implements Clickable,IgetA
         setContentView(R.layout.activity_get_all_fav_meals);
          animationView = findViewById(R.id.my_animated_view);
 
-
+        back=findViewById(R.id.returnArrowID);
 
 
         recyclerView=findViewById(R.id.recycleId);
@@ -60,6 +62,12 @@ public class getAllFavMeals extends AppCompatActivity implements Clickable,IgetA
         presenter=new getAllFavPresenter(this, CategoryRepository.getInstance(CategoryLocalDataSource.getInstance(this), CategoryRemoteDataSource.getInstance()));
         recyclerView.setAdapter(adapter);
         presenter.getAllFav();
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 

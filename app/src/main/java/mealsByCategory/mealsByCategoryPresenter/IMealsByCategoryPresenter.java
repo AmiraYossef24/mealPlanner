@@ -1,5 +1,6 @@
 package mealsByCategory.mealsByCategoryPresenter;
 
+import model.DateMeal;
 import model.Meal;
 
 public interface IMealsByCategoryPresenter {
@@ -8,4 +9,5 @@ public interface IMealsByCategoryPresenter {
     void addToFav(Meal meal);
 
     void deleteMeal(Meal meal);
+    public void addToCalendar(DateMeal meal);
 }

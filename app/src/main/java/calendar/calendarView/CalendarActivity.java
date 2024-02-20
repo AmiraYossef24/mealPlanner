@@ -1,6 +1,5 @@
 package calendar.calendarView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,11 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.ImageView;
 
 import com.example.mealplanner.R;
 
@@ -26,7 +23,6 @@ import DB.CategoryLocalDataSource;
 import calendar.calendarPresenter.CalendarPresenter;
 import calendar.calendarPresenter.ICalendarPresenter;
 import homepage.view.Clickable;
-import io.reactivex.rxjava3.core.Observable;
 import model.Category;
 import model.CategoryRepository;
 import model.DateMeal;
@@ -40,6 +36,7 @@ public class CalendarActivity extends AppCompatActivity implements Clickable,ICa
 
         CalendarView myCalendar;
         CalendarAdapter adapter;
+        ImageView back;
         ICalendarPresenter presenter;
         private static final String TAG="RecycleView";
         @SuppressLint("MissingInflatedId")
@@ -47,6 +44,7 @@ public class CalendarActivity extends AppCompatActivity implements Clickable,ICa
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_calendar);
+                back=findViewById(R.id.returnArrow3ID);
                 recyclerView = findViewById(R.id.calendarRecycleID);
                 myCalendar = findViewById(R.id.calendarViewID);
                 recyclerView.setHasFixedSize(true);
@@ -56,6 +54,12 @@ public class CalendarActivity extends AppCompatActivity implements Clickable,ICa
                 presenter = new CalendarPresenter(this, CategoryRepository.getInstance(CategoryLocalDataSource.getInstance(this), CategoryRemoteDataSource.getInstance()));
                 recyclerView.setAdapter(adapter);
                 presenter.getAllPlans();
+                back.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                finish();
+                        }
+                });
 
 
         }

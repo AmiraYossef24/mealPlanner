@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mealplanner.PoorConnectionActivity;
 import com.example.mealplanner.R;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -71,6 +73,8 @@ public class ItemDetails extends AppCompatActivity implements Clickable, IitemDe
         setContentView(R.layout.activity_item_details);
         toolbar=findViewById(R.id.myToolBarID);
         setSupportActionBar(toolbar);
+        imageView=findViewById(R.id.itemImageID);
+        webView=findViewById(R.id.webViewID);
         toolbar.setTitle("");
         fabMenu = findViewById(R.id.fab_menu);
         fabItem1=findViewById(R.id.fav_fabID);
@@ -93,15 +97,15 @@ public class ItemDetails extends AppCompatActivity implements Clickable, IitemDe
     }
 
     public void showErrorMsg(String msg){
-        AlertDialog.Builder builder=new AlertDialog.Builder(getApplicationContext());
-        builder.setMessage(msg).setTitle("Error Message!");
-        AlertDialog dialog=builder.create();
-        dialog.show();
-
+        startActivity(new Intent(this, PoorConnectionActivity.class));
+        finish();
     }
 
     @Override
     public void showAllDetails(List<Meal> meals) {
+
+        Log.i("TAG", "image url is : "+meals.get(0).getStrMealThumb());
+        Picasso.get().load(meals.get(0).getStrMealThumb().toString()).into(imageView);
         name.setText(meals.get(0).getStrMeal());
         category.setText(meals.get(0).getStrCategory());
         area.setText(meals.get(0).getStrArea());
@@ -163,13 +167,6 @@ public class ItemDetails extends AppCompatActivity implements Clickable, IitemDe
 
             }
         });
-
-//        String imageSource = meals.get(0).getStrMealThumb();
-//        if (imageSource != null && !imageSource.isEmpty()) {
-//            Picasso.get().load(imageSource).into(imageView);
-//        }
-//        webView.loadUrl(meals.get(0).getStrYoutube());
-//        webView.setSaveEnabled(true);
 
 
 
@@ -238,4 +235,5 @@ public class ItemDetails extends AppCompatActivity implements Clickable, IitemDe
     public void clickOnDeleteCalendar(DateMeal meal) {
 
     }
+
 }

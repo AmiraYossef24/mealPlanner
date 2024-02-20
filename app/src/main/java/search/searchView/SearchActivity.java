@@ -1,10 +1,6 @@
 package search.searchView;
 
-import static homepage.view.HomeAdapter.CATEGORY_NAME;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,8 +12,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.mealplanner.PoorConnectionActivity;
 import com.example.mealplanner.R;
 
 import java.util.ArrayList;
@@ -25,24 +23,20 @@ import java.util.List;
 
 import DB.CategoryLocalDataSource;
 import homepage.view.Clickable;
-import mealsByCategory.mealsByCategoryPresenter.MealsByCategoryPresenter;
-import mealsByCategory.mealsByCategoryView.MealsByCategoryAdapter;
 import model.Category;
 import model.CategoryRepository;
 import model.DateMeal;
 import model.Meal;
-import model.Meals;
 import network.CategoryRemoteDataSource;
 import search.searchPresenter.SearchPresenter;
 import io.reactivex.rxjava3.core.Observable;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
 
 public class SearchActivity extends AppCompatActivity implements Clickable, ISearchActivity {
 
     RecyclerView recyclerView;
     SearchPresenter presenter;
     CategoryRepository repo;
+    ImageView back;
 
     SearchAdapter adapter;
     EditText search;
@@ -59,6 +53,7 @@ public class SearchActivity extends AppCompatActivity implements Clickable, ISea
         animationView=findViewById(R.id.my_animated_view);
         search=findViewById(R.id.editTextSearchId);
         recyclerView=findViewById(R.id.search_recycleID);
+        back=findViewById(R.id.returnArrow3ID);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -67,6 +62,12 @@ public class SearchActivity extends AppCompatActivity implements Clickable, ISea
         presenter= new SearchPresenter(this,CategoryRepository.getInstance(CategoryLocalDataSource.getInstance(this), CategoryRemoteDataSource.getInstance()));
 
         presenter.searchByName(search.getText().toString());
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -142,9 +143,7 @@ public class SearchActivity extends AppCompatActivity implements Clickable, ISea
     @Override
     public void showErrorMsg(String msg) {
 
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setMessage(msg).setTitle("Error Message!");
-        AlertDialog dialog=builder.create();
-        dialog.show();
+        startActivity(new Intent(this, PoorConnectionActivity.class));
+        finish();
     }
 }

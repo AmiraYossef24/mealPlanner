@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mealplanner.PoorConnectionActivity;
 import com.example.mealplanner.R;
 import com.squareup.picasso.Picasso;
 
@@ -120,10 +121,7 @@ public class oneMealFragment extends Fragment implements Clickable, IoneMealFrag
     @Override
     public void showErrorMsg(String msg) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage(msg).setTitle("Error Message!");
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        startActivity(new Intent(getContext(), PoorConnectionActivity.class));
     }
 
     @Override

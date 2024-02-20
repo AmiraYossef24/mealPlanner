@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mealplanner.PoorConnectionActivity;
 import com.example.mealplanner.R;
 
 import java.util.ArrayList;
@@ -79,6 +80,7 @@ public class MealsByCountry extends AppCompatActivity implements Clickable, IMea
 
     @Override
     public void clickOnCalendar(DateMeal meal) {
+        presenter.addToCalendar(meal);
 
     }
 
@@ -95,11 +97,9 @@ public class MealsByCountry extends AppCompatActivity implements Clickable, IMea
     }
 
     public void showErrorMsg(String msg){
+        startActivity(new Intent(this, PoorConnectionActivity.class));
+        finish();
 
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setMessage(msg).setTitle("Error Message!");
-        AlertDialog dialog=builder.create();
-        dialog.show();
 
     }
 
