@@ -148,6 +148,19 @@ public class CategoryRemoteDataSource implements  ICategoryRemoteDataSource {
                         });
     }
 
+    public void makeFilterByIngradiantName(NetworkCallBack networkCallBack,String name){
+        Single<Meals> call=apiInterface.getMealsByIngradiantName(name);
+        call.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(item -> {
+                            networkCallBack.onSuccessFilterByIngradiantName(item.getMeals());
+                        },
+                        error->{
+                            networkCallBack.onFailureResult(error.getMessage());
+                        });
+
+    }
+
 
 }
 

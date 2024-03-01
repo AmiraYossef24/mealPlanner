@@ -3,6 +3,7 @@ package itemDetails.itemView;
 import static java.security.AccessController.getContext;
 import static oneMealFragment.oneMealView.oneMealFragment.MEAL_ID;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -24,6 +25,9 @@ import com.example.mealplanner.PoorConnectionActivity;
 import com.example.mealplanner.R;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -45,6 +49,7 @@ import model.Meal;
 import network.CategoryRemoteDataSource;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class ItemDetails extends AppCompatActivity implements Clickable, IitemDetails {
 
     Toolbar toolbar;
@@ -59,12 +64,20 @@ public class ItemDetails extends AppCompatActivity implements Clickable, IitemDe
 
     ItemPresenter presenter;
 
-    WebView webView;
+    ImageView ingra1;
+    ImageView ingra2;
+    ImageView ingra3;
+    ImageView ingra4;
+    ImageView ingra5;
+
+    YouTubePlayerView webView;
     Clickable clickable;
 
     FloatingActionsMenu fabMenu;
     FloatingActionButton fabItem1, fabItem2;
     String dayName;
+    String imageUrl1="www.themealdb.com/images/";
+    String imageUrl2="/Lime-Small.png";
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -74,8 +87,13 @@ public class ItemDetails extends AppCompatActivity implements Clickable, IitemDe
         toolbar=findViewById(R.id.myToolBarID);
         setSupportActionBar(toolbar);
         imageView=findViewById(R.id.itemImageID);
-        webView=findViewById(R.id.webViewID);
+        webView=findViewById(R.id.video);
         toolbar.setTitle("");
+        ingra1=findViewById(R.id.imageIngra1);
+        ingra2=findViewById(R.id.imageIngra2);
+        ingra3=findViewById(R.id.imageIngra3);
+        ingra4=findViewById(R.id.imageIngra4);
+        ingra5=findViewById(R.id.imageIngra5);
         fabMenu = findViewById(R.id.fab_menu);
         fabItem1=findViewById(R.id.fav_fabID);
         fabItem2=findViewById(R.id.calender_fabID);
@@ -120,9 +138,45 @@ public class ItemDetails extends AppCompatActivity implements Clickable, IitemDe
             String ingredient = getIngredient(meals.get(0), i);
             if (ingredient != null && !ingredient.isEmpty()) {
                 ingredientsBuilder.append(ingredient).append("\n");
+
+                switch (i) {
+                    case 1:
+                        String ingra=meals.get(0).getStrIngredient1();
+                        Picasso.get().load("http://www.themealdb.com/images/" + ingra + "/Lime-Small.png").into(ingra1);
+                        break;
+                    case 2:
+                        String ingraa2=meals.get(0).getStrIngredient2();
+                        Picasso.get().load("http://www.themealdb.com/images/" + ingraa2 + "/Lime-Small.png").into(ingra2);
+                        break;
+                    case 3:
+                        String ingraa3=meals.get(0).getStrIngredient3();
+                        Picasso.get().load("http://www.themealdb.com/images/" + ingraa3 + "/Lime-Small.png").into(ingra3);
+                        break;
+                    case 4:
+                        String ingraa4=meals.get(0).getStrIngredient4();
+                        Picasso.get().load("http://www.themealdb.com/images/" + ingraa4 + "/Lime-Small.png").into(ingra4);
+                        break;
+                    case 5:
+                        String ingraa5=meals.get(0).getStrIngredient5();
+                        Picasso.get().load("http://www.themealdb.com/images/" + ingraa5 + "/Lime-Small.png").into(ingra5);
+                        break;
+                    // Add more cases if you have more ImageViews for ingredients
+                }
             }
         }
         ingradiants.setText(ingredientsBuilder.toString());
+
+
+        webView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                super.onReady(youTubePlayer);
+                int start=meals.get(0).getStrYoutube().indexOf("=")+1;
+                String videaId=meals.get(0).getStrYoutube().substring(start);
+                youTubePlayer.loadVideo(videaId,0);
+
+            }
+        });
 
         fabItem1.setOnClickListener(new View.OnClickListener() {
             @Override

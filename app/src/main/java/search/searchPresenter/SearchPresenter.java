@@ -67,6 +67,11 @@ public class SearchPresenter implements NetworkCallBack, ISearchPresenter {
     }
 
     @Override
+    public void onSuccessFilterByIngradiantName(List<Meal> meals) {
+
+    }
+
+    @Override
     public void searchByName(String name){
         repo.getSearchByName(this ,name);
     }

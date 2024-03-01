@@ -1,27 +1,29 @@
 package com.example.mealplanner;
 
-import static com.google.android.material.internal.ContextUtils.getActivity;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
@@ -44,7 +46,6 @@ import login.view.SignInActivity;
 import model.MyDialogFragment;
 import profile.profileView.ProfileActivity;
 import search.searchView.SearchActivity;
-import androidx.fragment.app.DialogFragment;
 
 public class AppAcitivity extends AppCompatActivity implements  BottomNavigationView.OnNavigationItemSelectedListener
 {
@@ -54,7 +55,10 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
     ImageButton filter;
     SearchView searchView;
 
+
+    ImageView menuIcon;
     ImageView logout;
+    ImageView imageProfile;
     TextView headerTextView;
     BottomNavigationView bottomNavigationView;
 
@@ -71,6 +75,7 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
 
     private  GoogleSignInAccount account;
     private static final String TAG="AppActivity";
+    public  static final String CHANNEL_ID="x_channelId";
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
     @Override
@@ -79,8 +84,9 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_acitivity);
         filter=findViewById(R.id.filterBtnID);
-        logout=findViewById(R.id.notificationImageViewID);
+        //logout=findViewById(R.id.notificationImageViewID);
         drawerLayout = findViewById(R.id.drawer_layout);
+        imageProfile=findViewById(R.id.profileImageView);
         navigationView = findViewById(R.id.nav_view);
         headerView = navigationView.getHeaderView(0);
         headerTextView = headerView.findViewById(R.id.userName);
@@ -88,7 +94,19 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
         homeBtn=findViewById(R.id.homeChip);
         categoryBtn=findViewById(R.id.cateChip);
         countryBtn=findViewById(R.id.countryChip);
+        menuIcon=findViewById(R.id.menuecircleImageView);
         ingradiantsBtn=findViewById(R.id.ingraChip);
+        Menu menu = navigationView.getMenu();
+        MenuItem menuItem = menu.findItem(R.id.logout);
+
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                startActivity(new Intent(AppAcitivity.this, ProfileActivity.class));
+                Log.i(TAG, "after line 116: ");
+                return true;
+            }
+        });
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,27 +134,17 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
             headerTextView.setText(email);
         }
 
-
-        logout.setOnClickListener(new View.OnClickListener() {
+        menuIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
-
-                if(firebaseUser==null){
-
-                    DialogFragment dialogFragment = new MyDialogFragment();
-                    dialogFragment.show(getSupportFragmentManager(), "MyDialogFragment");
-
-                }else {
-
-                    FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(AppAcitivity.this, SignInActivity.class));
-                    Toast.makeText(AppAcitivity.this, "Logout Successfully", Toast.LENGTH_SHORT).show();
-                    finish();
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                } else {
+                    drawerLayout.openDrawer(GravityCompat.START);
                 }
-
             }
         });
+
 
         homeBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -181,6 +189,19 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
             }
         });
 
+        imageProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkUser()) {
+                    Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(pickPhotoIntent, 1);
+                }else {
+                    DialogFragment dialogFragment = new MyDialogFragment();
+                    dialogFragment.show(getSupportFragmentManager(), "MyDialogFragment");
+                }
+            }
+        });
+
     }
 
     private boolean checkUser() {
@@ -195,23 +216,30 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
 
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
-            if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-                drawerLayout.closeDrawer(GravityCompat.START);
-            }else{
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
+    @SuppressLint("MissingPermission")
+    private  void displayNotification(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel notificationChannel=new NotificationChannel(CHANNEL_ID,"channel display name", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationChannel.setDescription("my cahnnel discription");
+            NotificationManager nm=getSystemService(NotificationManager.class);
+            nm.createNotificationChannel(notificationChannel);
         }
-
-        if (item.getItemId() == R.id.fav_page) {
-            startActivity(new Intent(this, getAllFavMeals.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        Intent intent=new Intent(this,CalendarActivity.class);
+        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent,0);
+        NotificationCompat.Builder builder=new NotificationCompat.Builder(getBaseContext(),CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.notification_thin_icon)
+                .setContentTitle("Title")
+                .setContentText("pla pla")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("my data"))
+                .addAction(R.drawable.back_icon,"Show",pendingIntent);
+        NotificationManagerCompat nmc=NotificationManagerCompat.from(this);
+        nmc.notify(10,builder.build());
     }
+
+
+
+
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -231,15 +259,6 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
         } else if (itemId == R.id.home_page) {
             startActivity(new Intent(this, AppAcitivity.class));
             return true;
-        } else if (itemId == R.id.profile_page) {
-            if(checkUser()){
-                Log.i(TAG, "line 198 return : ");
-                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                return true;
-            }else {
-                DialogFragment dialogFragment = new MyDialogFragment();
-                dialogFragment.show(getSupportFragmentManager(), "MyDialogFragment");
-            }
         }else if (itemId == R.id.search_page) {
             startActivity(new Intent(this, SearchActivity.class));
             return true;
@@ -253,7 +272,49 @@ public class AppAcitivity extends AppCompatActivity implements  BottomNavigation
                 dialogFragment.show(getSupportFragmentManager(), "MyDialogFragment");
             }
         }
+        else if(itemId==R.id.profile){
+            if(checkUser()){
+                Log.i(TAG, "line 186 return : ");
+                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                return true;
+            }else {
+                DialogFragment dialogFragment = new MyDialogFragment();
+                dialogFragment.show(getSupportFragmentManager(), "MyDialogFragment");
+            }
+
+        }
+        else if(itemId==R.id.logout){
+            logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(AppAcitivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                    FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
+
+                    if(firebaseUser==null){
+
+                        DialogFragment dialogFragment = new MyDialogFragment();
+                        dialogFragment.show(getSupportFragmentManager(), "MyDialogFragment");
+
+                    }else {
+
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(AppAcitivity.this, SignInActivity.class));
+                        Toast.makeText(AppAcitivity.this, "Logout Successfully", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+
+                }
+            });
+        }
 
         return false;
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            imageProfile.setImageURI(selectedImageUri);
+        }
     }
 }

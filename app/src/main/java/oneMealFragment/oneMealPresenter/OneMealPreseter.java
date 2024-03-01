@@ -68,6 +68,11 @@ public class OneMealPreseter implements NetworkCallBack,  IOneMealPreseter {
 
     }
 
+    @Override
+    public void onSuccessFilterByIngradiantName(List<Meal> meals) {
+
+    }
+
 
     @Override
     public void getRandomMeal() {

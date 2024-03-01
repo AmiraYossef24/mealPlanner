@@ -73,5 +73,10 @@ public class FPresenter implements NetworkCallBack, IfPresenter {
     public void onSuccessFilterByIngradiant(List<Meal> meals) {
 
     }
+
+    @Override
+    public void onSuccessFilterByIngradiantName(List<Meal> meals) {
+
+    }
 }
 

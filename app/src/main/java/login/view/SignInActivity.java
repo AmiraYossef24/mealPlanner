@@ -86,6 +86,7 @@ public class SignInActivity extends AppCompatActivity {
                         Intent intent=new Intent(getApplicationContext(), AppAcitivity.class);
                         //intent.putExtra(EMAIL,authResult.)
                         startActivity(intent);
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

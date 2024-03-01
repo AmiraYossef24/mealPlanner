@@ -69,6 +69,11 @@ public class MealsByCountryPresenter implements NetworkCallBack, IMealsByCountry
 
     }
 
+    @Override
+    public void onSuccessFilterByIngradiantName(List<Meal> meals) {
+
+    }
+
 
     @Override
     public void addToFav(Meal meal) {

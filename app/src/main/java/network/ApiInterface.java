@@ -40,4 +40,7 @@ public interface ApiInterface {
     @GET("list.php?i=list")
     Single<Meals> getMealsByIngradiants();
 
+    @GET("filter.php")
+    Single<Meals> getMealsByIngradiantName(@Query("i") String name);
+
 }

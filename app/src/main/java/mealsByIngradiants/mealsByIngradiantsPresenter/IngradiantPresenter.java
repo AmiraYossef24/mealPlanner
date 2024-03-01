@@ -67,6 +67,11 @@ public class IngradiantPresenter implements NetworkCallBack, IingradiantPresente
         view.showAllIngradiants(meals);
     }
 
+    @Override
+    public void onSuccessFilterByIngradiantName(List<Meal> meals) {
+
+    }
+
 
     @Override
     public void getAllIngradiants(){

@@ -10,43 +10,117 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:background="@color/dark_color"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageView"
-            android:layout_width="112dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="4dp"
-            android:layout_weight="1"
-            android:src="@drawable/person_user_icon"
-            tools:ignore="MissingClass" />
-
-        <TextView
-            android:id="@+id/userName"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="25dp"
-            android:layout_weight="3"
-            android:gravity="start"
-            android:text="@string/ahmed"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp" />
+            android:background="@color/dark_color"
+            android:orientation="horizontal"
+            android:paddingTop="16dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImageView"
+                android:layout_width="112dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:src="@drawable/person_user_icon"
+                tools:ignore="MissingClass" />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="25dp"
+                android:layout_weight="3"
+                android:gravity="start"
+                android:text="@string/ahmed"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+        </LinearLayout>
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/favTX"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:drawableLeft="@drawable/heart"
+            android:drawablePadding="8dp"
+            android:text="@string/fav_text"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/planTX"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:drawableLeft="@drawable/calender_agenda_icon"
+            android:drawablePadding="8dp"
+            android:text="@string/your_plan"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/logoutTX"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:drawableLeft="@drawable/logout"
+            android:drawablePadding="8dp"
+            android:text="@string/logout"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fav_fabID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginTop="420dp"
-
+        android:layout_gravity="end"
         android:layout_marginEnd="16dp"
-        android:clickable="true"
-        android:src="@drawable/camera_icon"
-        app:backgroundTint="@color/dark_color" />
+        android:layout_marginBottom="16dp"
+        app:fab_colorNormal="@color/dark_color"
+        app:fab_colorPressed="@color/white"
+        app:fab_icon="@drawable/camera_icon"
+        app:fab_title="Item 1"
+        app:rippleColor="@color/white_red" />
 
 </LinearLayout>

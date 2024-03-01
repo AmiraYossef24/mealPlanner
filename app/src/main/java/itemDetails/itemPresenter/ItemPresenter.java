@@ -69,6 +69,11 @@ public class ItemPresenter implements NetworkCallBack, IitemPresenter {
 
     }
 
+    @Override
+    public void onSuccessFilterByIngradiantName(List<Meal> meals) {
+
+    }
+
 
     @Override
     public void addToFav(Meal meal) {

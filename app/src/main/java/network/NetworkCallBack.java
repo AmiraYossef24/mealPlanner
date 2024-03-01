@@ -23,4 +23,6 @@ public interface NetworkCallBack  {
     void onSuccessSearchByName(List<Meal> meals);
 
     void onSuccessFilterByIngradiant(List<Meal> meals);
+
+    void onSuccessFilterByIngradiantName(List<Meal> meals);
 }

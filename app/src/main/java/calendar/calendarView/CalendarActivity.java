@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.ImageView;
@@ -15,6 +17,7 @@ import com.example.mealplanner.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -23,6 +26,7 @@ import DB.CategoryLocalDataSource;
 import calendar.calendarPresenter.CalendarPresenter;
 import calendar.calendarPresenter.ICalendarPresenter;
 import homepage.view.Clickable;
+import io.reactivex.rxjava3.core.Observable;
 import model.Category;
 import model.CategoryRepository;
 import model.DateMeal;
@@ -62,25 +66,40 @@ public class CalendarActivity extends AppCompatActivity implements Clickable,ICa
                 });
 
 
+
+
         }
 
-        @Override
-        public void showAllPlans(LiveData<List<DateMeal>> meals){
 
-                meals.observe(this, new Observer<List<DateMeal>>() {
+        public void showAllPlans(LiveData<List<DateMeal>> mealsLiveData) {
+                mealsLiveData.observe(this, new Observer<List<DateMeal>>() {
                         @Override
                         public void onChanged(List<DateMeal> meals) {
-                                if(adapter != null) {
-                                        adapter.setMyList(meals);
-                                        adapter.notifyDataSetChanged();
-                                }else{
-
-
+                                if (meals != null) {
+                                        myCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                                                @Override
+                                                public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                                                        Calendar selectedCalendar = Calendar.getInstance();
+                                                        selectedCalendar.set(year, month, dayOfMonth);
+                                                        Date selectedDate = selectedCalendar.getTime();
+                                                        String nameOfSelectedDay = convertDateToDayName(selectedDate).toLowerCase();
+                                                        List<DateMeal> filterList = new ArrayList<>();
+                                                        for (DateMeal meal : meals) {
+                                                                if (nameOfSelectedDay.equals(meal.getDay().toLowerCase())) {
+                                                                        filterList.add(meal);
+                                                                }
+                                                        }
+                                                        adapter.setMyList(filterList);
+                                                        adapter.notifyDataSetChanged();
+                                                }
+                                        });
+                                } else {
+                                        Log.e("TAG", "meals LiveData is null");
                                 }
                         }
                 });
-
         }
+
         private String convertDateToDayName(Date date) {
                 SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.getDefault());
                 return sdf.format(date);

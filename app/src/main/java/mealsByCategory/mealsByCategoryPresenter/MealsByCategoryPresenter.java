@@ -68,6 +68,11 @@ public class MealsByCategoryPresenter implements NetworkCallBack, IMealsByCatego
 
     }
 
+    @Override
+    public void onSuccessFilterByIngradiantName(List<Meal> meals) {
+
+    }
+
 
     @Override
     public void getMealsFilterByCategory(String categiry){

@@ -23,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -59,6 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private GoogleSignInClient gsc;
     private  GoogleSignInOptions gso;
+    int RC_SIGN_IN=20;
 
 
     @SuppressLint("MissingInflatedId")
@@ -82,7 +84,8 @@ public class SignUpActivity extends AppCompatActivity {
         reference=database.getReference("Users");
 
         firebaseAuth=FirebaseAuth.getInstance();
-        gso= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gso= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         gsc=GoogleSignIn.getClient(this,gso);
 
         googleBtn.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +124,8 @@ public class SignUpActivity extends AppCompatActivity {
     private void signInByGoogle() {
 
         Intent signInIntent=gsc.getSignInIntent();
-        startActivityForResult(signInIntent,1000);
+        startActivityForResult(signInIntent,RC_SIGN_IN);
+
 
 
     }
@@ -129,16 +133,45 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==1000){
+        if(resultCode==RC_SIGN_IN){
             Task<GoogleSignInAccount> task=GoogleSignIn.getSignedInAccountFromIntent(data);
-            navigateToSecondActivity();
+            //navigateToSecondActivity();
             try {
-                task.getResult(ApiException.class);
+              GoogleSignInAccount account=  task.getResult(ApiException.class);
+              firebaseAuth(account.getIdToken());
+
             } catch (ApiException e) {
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
+    private void firebaseAuth(String idToken) {
+
+        AuthCredential credential=GoogleAuthProvider.getCredential(idToken,null);
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            FirebaseUser user= firebaseAuth.getCurrentUser();
+                            HashMap<String,Object> map=new HashMap<>();
+                            map.put("id",user.getUid());
+                            map.put("name",user.getDisplayName());
+                            map.put("profile",user.getPhotoUrl().toString());
+                            database.getReference().child("users").child(user.getUid()).setValue(map);
+                            Intent intent=new Intent(SignUpActivity.this,AppAcitivity.class);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(SignUpActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+        }
+
+
+
 
     void navigateToSecondActivity(){
         finish();

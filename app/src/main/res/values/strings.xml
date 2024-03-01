@@ -46,5 +46,8 @@
     <string name="poor_conn">Poor Connection...</string>
     <string name="check_internet">"Check your Internet and try again "</string>
     <string name="welcome">Welcome</string>
+    <string name="watch">Watch Video</string>
+    <string name="notification">Notification</string>
+    <string name="your_plan">Your Plans</string>
 
 </resources>

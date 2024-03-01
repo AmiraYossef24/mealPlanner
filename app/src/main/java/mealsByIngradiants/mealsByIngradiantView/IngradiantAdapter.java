@@ -25,13 +25,14 @@ import countryFragment.countryView.CountryAdapter;
 import homepage.view.Clickable;
 import ingradiantsActivity.IngradiantActivity;
 import mealsByCountry.mealsByCountryView.MealsByCountry;
+import mealsByIngradiantName.mealsByIngradiantNameView.mealsByIngradiantNameActivity;
 import model.Meal;
 
 public class IngradiantAdapter extends  RecyclerView.Adapter<IngradiantAdapter.ViewHandler> {
     private final Context context;
 
-    String imageUrl1="www.themealdb.com/images/";
-    String imageUrl2="/Lime-Small.png";
+    String imageUrl1="https://themealdb.com/images/ingredients/";
+    String imageUrl2="-Small.png";
 
     public static final String INGRADIANT_NAME="INGRADIANT_NAME";
     private final String TAG="CountryAdapter";
@@ -39,7 +40,6 @@ public class IngradiantAdapter extends  RecyclerView.Adapter<IngradiantAdapter.V
 
     private Clickable clickable;
 
-    public static final String AREA_NAME="AREA_NAME";
 
     public IngradiantAdapter(Context context, List<Meal> myList, Clickable clickable) {
         this.context = context;
@@ -65,14 +65,14 @@ public class IngradiantAdapter extends  RecyclerView.Adapter<IngradiantAdapter.V
     @Override
     public void onBindViewHolder(@NonNull IngradiantAdapter.ViewHandler holder, @SuppressLint("RecyclerView") int position) {
 
-        Picasso.get().load(imageUrl1+myList.get(position).getStrIngredient1()+imageUrl2).into(holder.imageView);
+        Picasso.get().load(imageUrl1+myList.get(position).getStrIngredient()+imageUrl2).into(holder.imageView);
         holder.name.setText(myList.get(position).getStrIngredient());
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context, IngradiantActivity.class);
+                Intent intent=new Intent(context, mealsByIngradiantNameActivity.class);
                 intent.putExtra(INGRADIANT_NAME,myList.get(position).getStrIngredient());
-                //context.startActivity(intent);
+                context.startActivity(intent);
             }
         });
 

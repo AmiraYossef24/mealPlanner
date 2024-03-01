@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity(tableName = "calendar")
 public class DateMeal {
     @PrimaryKey
@@ -15,6 +17,8 @@ public class DateMeal {
 
     public DateMeal() {
     }
+
+
 
     public DateMeal(String mealId, String mealName, String imageUrl, String day) {
         this.mealId = mealId;

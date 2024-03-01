@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import java.util.Date;
 import java.util.List;
 
 import DB.CategoryLocalDataSource;
@@ -88,5 +89,11 @@ public class CategoryRepository {
     public void getAllFilterByIngradiants(NetworkCallBack networkCallBack){
         remoteDataSource.makeFilterByIngradiants(networkCallBack);
     }
+
+    public void getAllFilterByIngradiantName(NetworkCallBack networkCallBack , String name){
+        remoteDataSource.makeFilterByIngradiantName(networkCallBack,name);
+    }
+
+
 
 }
